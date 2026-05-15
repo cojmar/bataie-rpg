@@ -128,6 +128,15 @@
       gap: 8px;
     }
     
+   /* Navigation title styling */
+   .carousel-title {
+     color: #ffd700;
+     font-weight: bold;
+     font-size: 1em;
+     white-space: nowrap;
+     text-shadow: 0 0 10px rgba(255,215,0,0.5);
+   }
+    
     .class-gender {
       font-size: 1.4em;
       opacity: 0.8;
@@ -175,30 +184,34 @@
       color: #ffd700;
     }
     
-    /* Square buttons at bottom */
+    /* Navigation buttons - above class card */
     .carousel-nav {
       display: flex;
-      justify-content: space-between;
-      margin-top: 8px;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 10px;
     }
     
     .carousel-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
       border: 2px solid #ffd700;
       background: rgba(255,215,0,0.15);
       color: #ffd700;
-      font-size: 1.4em;
+      font-size: 1.6em;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s;
+      font-weight: bold;
     }
     
     .carousel-btn:hover {
       background: rgba(255,215,0,0.4);
+      transform: scale(1.05);
     }
     
     /* Right Panel - Preview */
@@ -522,7 +535,12 @@
         <div class="env-card" data-env="swamp" onclick="selectEnvironment('swamp')">🌧️ Swamp</div>
       </div>
       
-      <h3>⚔️ CLASS</h3>
+      <!-- Navigation buttons above class card -->
+      <div class="carousel-nav">
+        <button class="carousel-btn left" onclick="prevClass()">◀</button>
+        <span class="carousel-title" style="color:#ffd700;font-weight:bold;font-size:1em;">⚔️ CLASS</span>
+        <button class="carousel-btn right" onclick="nextClass()">▶</button>
+      </div>
       <div class="class-carousel">
         <div class="carousel-container" id="carousel-container">
           <div class="carousel-track" id="carousel-track">
@@ -596,10 +614,6 @@
             </div>
             
           </div>
-        </div>
-        <div class="carousel-nav">
-          <button class="carousel-btn left" onclick="prevClass()">◀</button>
-          <button class="carousel-btn right" onclick="nextClass()">▶</button>
         </div>
       </div>
     </div>
