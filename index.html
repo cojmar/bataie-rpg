@@ -93,7 +93,8 @@
       border-radius: 12px;
       border: 2px solid #4a4a6a;
       background: rgba(255,255,255,0.03);
-      padding: 15px 40px;
+      padding: 10px 35px;
+      height: 160px; /* Reduced height to save vertical space */
     }
     
     .carousel-track {
@@ -104,13 +105,13 @@
     .carousel-slide {
       flex: 0 0 100%;
       width: 100%;
-      max-height: 200px;
+      max-height: 140px;
       padding: 10px 15px;
       display: none;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      gap: 4px;
+      gap: 6px;
       overflow: hidden;
     }
     
@@ -123,19 +124,22 @@
     }
     
     .slide-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      display: none;
     }
     
    /* Navigation title styling */
    .carousel-title {
+     display: flex;
+     align-items: center;
+     gap: 10px;
      color: #ffd700;
      font-weight: bold;
      font-size: 1em;
      white-space: nowrap;
      text-shadow: 0 0 10px rgba(255,215,0,0.5);
    }
+   .class-icon-large { font-size: 2em; }
+   .class-name-large { font-size: 1.2em; color: #ffd700; font-weight: bold; }
     
     .class-gender {
       font-size: 1.4em;
@@ -156,12 +160,13 @@
     
     .class-stats {
       display: flex;
-      gap: 8px;
-      font-size: 0.78em;
+      gap: 5px;
+      font-size: 0.72em;
+      margin-top: 3px;
     }
     
     .class-stats .stat {
-      padding: 2px 6px;
+      padding: 2px 5px;
       border-radius: 5px;
       font-weight: bold;
       text-align: center;
@@ -172,10 +177,10 @@
     .class-stats .stat.spd { background: rgba(155,89,182,0.3); }
     
     .class-skills {
-      font-size: 0.7em;
+      font-size: 0.68em;
       text-align: center;
-      line-height: 1.6;
-      max-height: 35px;
+      line-height: 1.4;
+      max-height: 30px;
       overflow: hidden;
     }
     
@@ -263,42 +268,6 @@
       height: 240px;
       background: transparent;
     }
-    
-    .stats-overlay {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.7);
-      padding: 10px 20px;
-      border-radius: 10px;
-      z-index: 20;
-      text-align: center;
-    }
-    
-    .stats-overlay .stat-name {
-      font-size: 1.2em;
-      font-weight: bold;
-      color: #ffd700;
-      margin-bottom: 5px;
-    }
-    
-    .stats-overlay .stat-row {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      font-size: 0.9em;
-    }
-    
-    .stats-overlay .stat-item {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    
-    .stats-overlay .stat-value.hp { color: #e74c3c; }
-    .stats-overlay .stat-value.atk { color: #3498db; }
-    .stats-overlay .stat-value.spd { color: #9b59b6; }
     
     .preview-info {
       text-align: center;
@@ -467,7 +436,6 @@
         padding: 8px 6px;
       }
       .class-carousel {
-        min-height: 300px;
       }
       .carousel-container {
         padding: 10px 35px;
@@ -538,7 +506,9 @@
       <!-- Navigation buttons above class card -->
       <div class="carousel-nav">
         <button class="carousel-btn left" onclick="prevClass()">◀</button>
-        <span class="carousel-title" style="color:#ffd700;font-weight:bold;font-size:1em;">⚔️ CLASS</span>
+        <span class="carousel-title">
+          <span class="class-name-large" id="current-class-name">⚔️ Warrior</span>
+        </span>
         <button class="carousel-btn right" onclick="nextClass()">▶</button>
       </div>
       <div class="class-carousel">
@@ -547,10 +517,6 @@
             
             <!-- Warrior - Male -->
             <div class="carousel-slide active selected" data-class="warrior" onclick="selectClass('warrior')">
-              <div class="slide-header">
-                <div class="class-icon">⚔️</div>
-              </div>
-              <div class="class-name">Warrior</div>
               <div class="class-stats">
                 <span class="stat hp">HP: 100</span>
                 <span class="stat atk">ATK: 20</span>
@@ -564,10 +530,6 @@
             
             <!-- Mage - Male -->
             <div class="carousel-slide" data-class="mage" onclick="selectClass('mage')">
-              <div class="slide-header">
-                <div class="class-icon">🔮</div>
-              </div>
-              <div class="class-name">Mage</div>
               <div class="class-stats">
                 <span class="stat hp">HP: 80</span>
                 <span class="stat atk">ATK: 15</span>
@@ -581,10 +543,6 @@
             
             <!-- Archer - Female -->
             <div class="carousel-slide" data-class="archer" onclick="selectClass('archer')">
-              <div class="slide-header">
-                <div class="class-icon">🏹</div>
-              </div>
-              <div class="class-name">Archer</div>
               <div class="class-stats">
                 <span class="stat hp">HP: 70</span>
                 <span class="stat atk">ATK: 22</span>
@@ -598,10 +556,6 @@
             
             <!-- Magic Gladiator - Male -->
             <div class="carousel-slide" data-class="magicgladiator" onclick="selectClass('magicgladiator')">
-              <div class="slide-header">
-                <div class="class-icon">✨🔥</div>
-              </div>
-              <div class="class-name">Magic Gladiator</div>
               <div class="class-stats">
                 <span class="stat hp">HP: 120</span>
                 <span class="stat atk">ATK: 25</span>
@@ -625,23 +579,6 @@
         <canvas id="scene-canvas"></canvas>
         <div class="character-preview" id="character-preview">
           <canvas id="character-canvas" width="220" height="260"></canvas>
-        </div>
-        <div class="stats-overlay" id="stats-overlay" style="display:none;">
-          <div class="stat-name" id="stats-name"></div>
-          <div class="stat-row">
-            <div class="stat-item">
-              <span>HP:</span>
-              <span class="stat-value hp" id="stats-hp"></span>
-            </div>
-            <div class="stat-item">
-              <span>ATK:</span>
-              <span class="stat-value atk" id="stats-atk"></span>
-            </div>
-            <div class="stat-item">
-              <span>SPD:</span>
-              <span class="stat-value spd" id="stats-spd"></span>
-            </div>
-          </div>
         </div>
       </div>
       
@@ -1123,6 +1060,19 @@
       });
       
       selectedClass = classes[currentCarouselIndex];
+      
+   // Update class name display
+      const nameMap = {
+        warrior: '⚔️ Warrior',
+        mage: '🔮 Mage',
+        archer: '🏹 Archer',
+        magicgladiator: '✨🔥 Magic Gladiator'
+      };
+      const nameElement = document.getElementById('current-class-name');
+      if (nameElement) {
+        nameElement.textContent = nameMap[selectedClass] || selectedClass;
+      }
+      
       updatePreview();
     }
     
@@ -1147,34 +1097,13 @@
     function updatePreview() {
       const charCanvas = document.getElementById('character-canvas');
       const charCtx = charCanvas.getContext('2d');
-      const statsOverlay = document.getElementById('stats-overlay');
-      const statsName = document.getElementById('stats-name');
-      const statsHp = document.getElementById('stats-hp');
-      const statsAtk = document.getElementById('stats-atk');
-      const statsSpd = document.getElementById('stats-spd');
       const charPreview = document.getElementById('character-preview');
       
       if (selectedClass) {
         charPreview.style.display = 'block';
-        statsOverlay.style.display = 'block';
-        
         drawCharacter(charCtx, selectedClass);
-        
-        const classData = {
-          warrior: { hp: 100, atk: 20, spd: 10 },
-          mage: { hp: 80, atk: 15, spd: 12 },
-          archer: { hp: 70, atk: 22, spd: 18 },
-          magicgladiator: { hp: 120, atk: 25, spd: 8 }
-        };
-        
-        const stats = classData[selectedClass];
-        statsName.textContent = selectedClass.toUpperCase();
-        statsHp.textContent = stats.hp;
-        statsAtk.textContent = stats.atk;
-        statsSpd.textContent = stats.spd;
       } else {
         charPreview.style.display = 'none';
-        statsOverlay.style.display = 'none';
       }
     }
     
