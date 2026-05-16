@@ -767,7 +767,18 @@
       }
       
       const trees = window.treeLevels;
-
+      
+      // Recalculează pozițiile X în funcție de lățimea curentă a ecranului
+      // 10 copaci distribuiți uniform de la 5% la 95% din lățime
+      const spacing = w / 11;
+      for (let i = 0; i < window.treeLevels.length; i++) {
+        // Distribuție uniformă: 5% + i * (90% / 9) pentru 10 copaci
+        window.treeLevels[i].x = spacing * (i + 1);
+      }
+      
+      const radii = [35, 30, 25, 20, 15]; // 5 niveluri posibile de raza
+      
+      // Desenează copacii
       for (const t of trees) {
         const baseY = groundY;
         const gapFromTop = 25; // 25px gap between top of trunk and foliage start
@@ -779,8 +790,6 @@
         sceneCtx.fillRect(t.x - t.trunkW / 2, baseY - t.trunkH, t.trunkW, t.trunkH);
 
         // === 3-5 NIVELURI DE FOIAGE concentrice (ca un brad) ===
-        // Folosim elipse concentrice în jurul tulpinii
-        const radii = [35, 30, 25, 20, 15]; // 5 niveluri posibile de raza
         for (let i = 0; i < t.numLevels; i++) {
           if (i >= radii.length) break;
           
