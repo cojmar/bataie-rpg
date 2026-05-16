@@ -742,67 +742,84 @@
       }
     }
     
-     // ─── drawTrees: exactly 3 deciduous trees with concentric foliage (like a fir tree) ───
-    // Each tree: visible trunk + concentric foliage levels (circles/ellipses, not trapezoids)
+     // ─── drawTrees: 50 trees with depth stratification for forest density effect ───
+    // Multi-layered trees at different depths (size/opacity) to create depth perception
     // No sway, no animation, no regeneration — fixed positions and heights
     function drawTrees(w, h) {
       const groundY = h * 0.82;
       
-      // Initialize levels ONCE during game setup (not every draw)
-      if (!window.treeLevels) {
-        // 10 copaci cu distanta calculata in functie de latimea ecranului
-        const spacing = w / 11; // 10 copaci + 1 gap de la margine
-        window.treeLevels = [
-          { x: spacing * 0.5, trunkW: 8, trunkH: 65, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1b6b1b', color2: '#2d9a2d' },
-          { x: spacing * 1.5, trunkW: 10, trunkH: 70, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1a7a1a', color2: '#32b332' },
-          { x: spacing * 2.5, trunkW: 9, trunkH: 65, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1e7220', color2: '#35c035' },
-          { x: spacing * 3.5, trunkW: 11, trunkH: 75, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1b6b1b', color2: '#2d9a2d' },
-          { x: spacing * 4.5, trunkW: 10, trunkH: 70, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1a7a1a', color2: '#32b332' },
-          { x: spacing * 5.5, trunkW: 9, trunkH: 65, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1e7220', color2: '#35c035' },
-          { x: spacing * 6.5, trunkW: 12, trunkH: 80, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1b6b1b', color2: '#2d9a2d' },
-          { x: spacing * 7.5, trunkW: 10, trunkH: 70, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1a7a1a', color2: '#32b332' },
-          { x: spacing * 8.5, trunkW: 9, trunkH: 65, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1e7220', color2: '#35c035' },
-          { x: spacing * 9.5, trunkW: 8, trunkH: 60, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1b6b1b', color2: '#2d9a2d' },
-        ];
+      // Stratification: 3 layers (back/mid/foreground)
+      const layers = {
+        back:  { opacity: 0.15, scale: 0.4,  count: 20, minH: 40, maxH: 65,  r1: [20, 28], r2: [15, 22] },
+        mid:   { opacity: 0.35, scale: 0.7,  count: 20, minH: 55, maxH: 80,  r1: [30, 38], r2: [22, 30] },
+        front: { opacity: 0.65, scale: 1.0,  count: 10, minH: 70, maxH: 95,  r1: [40, 48], r2: [28, 35] },
+      };
+
+      // Generate random positions across entire screen width
+      const radii = [35, 30, 25, 20, 15, 12, 10, 8, 6, 5]; // 10 levels for foliage
+      
+      const trees = [];
+      
+      // Generate trees for each layer
+      for (const layer of Object.values(layers)) {
+        for (let i = 0; i < layer.count; i++) {
+          // Random x position across screen (with some clustering)
+          let x, r1, r2, trunkW, trunkH, color1, color2, numLevels;
+          
+          // Random position with clustering effect
+          const cluster = Math.random() < 0.3 ? Math.random() * 3 : 0;
+          x = Math.random() * w + cluster * (w / 5);
+          
+          // Random size and foliage levels
+          trunkW = Math.floor(Math.random() * 5) + 6;
+          trunkH = Math.floor(Math.random() * (layer.maxH - layer.minH + 1)) + layer.minH;
+          numLevels = Math.floor(Math.random() * (radii.length - 1)) + 1;
+          r1 = radii[Math.floor(Math.random() * radii.length)];
+          r2 = r1 * 0.6;
+          
+          // Alternating colors for foliage
+          color1 = i % 2 === 0 ? '#1b6b1b' : '#1e7220';
+          color2 = i % 2 === 0 ? '#2d9a2d' : '#35c035';
+          
+          trees.push({
+            x, trunkW, trunkH, numLevels, color1, color2,
+            opacity: layer.opacity * (Math.random() * 0.2 + 0.8), // Additional randomness
+            scale: layer.scale
+          });
+        }
       }
       
-      const trees = window.treeLevels;
+      // Sort by depth (back to front) so back trees render first
+      trees.sort((a, b) => a.scale - b.scale);
       
-      // Recalculează pozițiile X în funcție de lățimea curentă a ecranului
-      // 10 copaci distribuiți uniform de la 5% la 95% din lățime
-      const spacing = w / 11;
-      for (let i = 0; i < window.treeLevels.length; i++) {
-        // Distribuție uniformă: 5% + i * (90% / 9) pentru 10 copaci
-        window.treeLevels[i].x = spacing * (i + 1);
-      }
+      // Draw trees (back to front)
+      const radii = [35, 30, 25, 20, 15, 12, 10, 8, 6, 5];
+      const groundY = h * 0.82;
+      const gapFromTop = 25;
+      const foliageSpacing = 18;
       
-      const radii = [35, 30, 25, 20, 15]; // 5 niveluri posibile de raza
-      
-      // Desenează copacii
       for (const t of trees) {
         const baseY = groundY;
-        const gapFromTop = 25; // 25px gap between top of trunk and foliage start
-        const spacing = 18; // Vertical spacing between foliage levels
-        const levelHeight = 25; // Height per level
         
-        // === TULPINA (trunk) - complet vizibilă ===
+        // === TULPINA (trunk) ===
         sceneCtx.fillStyle = '#5d4037';
         sceneCtx.fillRect(t.x - t.trunkW / 2, baseY - t.trunkH, t.trunkW, t.trunkH);
 
-        // === 3-5 NIVELURI DE FOIAGE concentrice (ca un brad) ===
+        // === FOIAGE (concentric circles/ellipses) ===
         for (let i = 0; i < t.numLevels; i++) {
           if (i >= radii.length) break;
           
-          const levelY = baseY - t.trunkH - gapFromTop - i * spacing;
-          const r1 = radii[i] * 0.95; // Raza mare (lățime)
-          const r2 = radii[i] * 0.65; // Raza mică (înălțime) - elipsa este mai plată pentru aspect natural
+          const levelY = baseY - t.trunkH - gapFromTop - i * foliageSpacing;
+          const r1 = radii[i] * t.scale * 0.95;
+          const r2 = radii[i] * t.scale * 0.65;
           
-          // Desenează elipsa concentrică
+          sceneCtx.globalAlpha = t.opacity;
           sceneCtx.fillStyle = (i % 2 === 0) ? t.color1 : t.color2;
           sceneCtx.beginPath();
           sceneCtx.ellipse(t.x, levelY, r1, r2, 0, 0, Math.PI * 2);
           sceneCtx.closePath();
           sceneCtx.fill();
+          sceneCtx.globalAlpha = 1.0;
         }
       }
     }
