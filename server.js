@@ -2,7 +2,6 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const hostname = '0.0.0.0';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
@@ -25,6 +24,9 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+server.listen(port, '0.0.0.0', function() {
+  console.log(`Server running at http://0.0.0.0:${port}/`);
+  console.log(`Also accessible at http://cojmar.go.ro:${port}/`);
+}).on('error', function(err) {
+  console.error('Server error:', err.message);
 });
