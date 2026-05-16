@@ -742,41 +742,50 @@
       }
     }
     
-    // ─── drawTrees: exactly 3 static deciduous trees ───
-    // Each tree: straight brown trunk + 2 green foliage layers (triangles)
+     // ─── drawTrees: exactly 3 deciduous trees with concentric foliage (like a fir tree) ───
+    // Each tree: visible trunk + concentric foliage levels (circles/ellipses, not trapezoids)
     // No sway, no animation, no regeneration — fixed positions and heights
     function drawTrees(w, h) {
       const groundY = h * 0.82;
-      const trees = [
-        { x: w * 0.10, trunkW: 10, trunkH: 70, canopyR1: 35, canopyR2: 25, color1: '#1b6b1b', color2: '#2d9a2d' },
-        { x: w * 0.50, trunkW: 12, trunkH: 90, canopyR1: 40, canopyR2: 28, color1: '#1a7a1a', color2: '#32b332' },
-        { x: w * 0.88, trunkW:  9, trunkH: 60, canopyR1: 30, canopyR2: 20, color1: '#1e7220', color2: '#35c035' },
-      ];
+      
+      // Initialize levels ONCE during game setup (not every draw)
+      if (!window.treeLevels) {
+        window.treeLevels = [
+          { x: w * 0.10, trunkW: 10, trunkH: 70, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1b6b1b', color2: '#2d9a2d' },
+          { x: w * 0.50, trunkW: 12, trunkH: 90, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1a7a1a', color2: '#32b332' },
+          { x: w * 0.88, trunkW:  9, trunkH: 60, numLevels: Math.floor(Math.random() * 3) + 3, color1: '#1e7220', color2: '#35c035' },
+        ];
+      }
+      
+      const trees = window.treeLevels;
 
       for (const t of trees) {
         const baseY = groundY;
-
-        // Trunk — straight rectangle, brown
+        const gapFromTop = 25; // 25px gap between top of trunk and foliage start
+        const spacing = 18; // Vertical spacing between foliage levels
+        const levelHeight = 25; // Height per level
+        
+        // === TULPINA (trunk) - complet vizibilă ===
         sceneCtx.fillStyle = '#5d4037';
         sceneCtx.fillRect(t.x - t.trunkW / 2, baseY - t.trunkH, t.trunkW, t.trunkH);
 
-        // Foliage layer 1 (lower, larger) — triangle
-        sceneCtx.fillStyle = t.color1;
-        sceneCtx.beginPath();
-        sceneCtx.moveTo(t.x, baseY - t.trunkH - t.canopyR1 * 0.8);
-        sceneCtx.lineTo(t.x - t.canopyR1, baseY - t.trunkH + 5);
-        sceneCtx.lineTo(t.x + t.canopyR1, baseY - t.trunkH + 5);
-        sceneCtx.closePath();
-        sceneCtx.fill();
-
-        // Foliage layer 2 (upper, smaller) — triangle
-        sceneCtx.fillStyle = t.color2;
-        sceneCtx.beginPath();
-        sceneCtx.moveTo(t.x, baseY - t.trunkH - t.canopyR1 * 0.8 - t.canopyR2 * 0.6);
-        sceneCtx.lineTo(t.x - t.canopyR2, baseY - t.trunkH - t.canopyR1 * 0.8 + t.canopyR2 * 0.4);
-        sceneCtx.lineTo(t.x + t.canopyR2, baseY - t.trunkH - t.canopyR1 * 0.8 + t.canopyR2 * 0.4);
-        sceneCtx.closePath();
-        sceneCtx.fill();
+        // === 3-5 NIVELURI DE FOIAGE concentrice (ca un brad) ===
+        // Folosim elipse concentrice în jurul tulpinii
+        const radii = [35, 30, 25, 20, 15]; // 5 niveluri posibile de raza
+        for (let i = 0; i < t.numLevels; i++) {
+          if (i >= radii.length) break;
+          
+          const levelY = baseY - t.trunkH - gapFromTop - i * spacing;
+          const r1 = radii[i] * 0.95; // Raza mare (lățime)
+          const r2 = radii[i] * 0.65; // Raza mică (înălțime) - elipsa este mai plată pentru aspect natural
+          
+          // Desenează elipsa concentrică
+          sceneCtx.fillStyle = (i % 2 === 0) ? t.color1 : t.color2;
+          sceneCtx.beginPath();
+          sceneCtx.ellipse(t.x, levelY, r1, r2, 0, 0, Math.PI * 2);
+          sceneCtx.closePath();
+          sceneCtx.fill();
+        }
       }
     }
 
