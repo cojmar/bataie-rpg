@@ -1107,42 +1107,378 @@
       }
     }
     
+    // === DRAW WARRIOR FROM WAR.HTML ===
+    function drawWarrior(ctx, x, y, scale = 1){
+      function px(pxX, pxY, w, h, color){
+        ctx.fillStyle = color;
+        ctx.fillRect(pxX, pxY, w, h);
+      }
+      
+      const s = scale;
+      
+      // =========================
+      // CAPE
+      // =========================
+      
+      px(x + 38*s, y + 95*s, 90*s, 130*s, "#760000");
+      px(x + 48*s, y + 95*s, 70*s, 145*s, "#980000");
+      
+      // =========================
+      // HEAD
+      // =========================
+      
+      px(x + 55*s, y + 25*s, 55*s, 55*s, "#d8a070");
+      
+      // =========================
+      // HELMET
+      // =========================
+      
+      // top
+      px(x + 48*s, y + 8*s, 70*s, 18*s, "#666");
+      
+      // sides
+      px(x + 48*s, y + 18*s, 12*s, 55*s, "#555");
+      px(x + 106*s, y + 18*s, 12*s, 55*s, "#555");
+      
+      // front band
+      px(x + 55*s, y + 28*s, 55*s, 10*s, "#888");
+      
+      // nose guard
+      px(x + 79*s, y + 25*s, 8*s, 40*s, "#444");
+      
+      // horns
+      px(x + 35*s, y + 10*s, 14*s, 8*s, "#d8c090");
+      px(x + 118*s, y + 10*s, 14*s, 8*s, "#d8c090");
+      
+      // =========================
+      // FACE
+      // =========================
+      
+      // eyes
+      px(x + 68*s, y + 48*s, 5*s, 5*s, "#000");
+      px(x + 92*s, y + 48*s, 5*s, 5*s, "#000");
+      
+      // beard
+      px(x + 66*s, y + 65*s, 34*s, 24*s, "#3b240b");
+      
+      // =========================
+      // BODY
+      // =========================
+      
+      px(x + 48*s, y + 90*s, 70*s, 95*s, "#666");
+      
+      // chest
+      px(x + 55*s, y + 100*s, 24*s, 24*s, "#888");
+      px(x + 87*s, y + 100*s, 24*s, 24*s, "#888");
+      
+      // abs
+      for(let i=0;i<3;i++){
+          px(
+              x + 69*s,
+              y + (130 + i*14)*s,
+              12*s,
+              10*s,
+              "#888"
+          );
+          
+          px(
+              x + 85*s,
+              y + (130 + i*14)*s,
+              12*s,
+              10*s,
+              "#888"
+          );
+      }
+      
+      // belt
+      px(x + 45*s, y + 185*s, 78*s, 10*s, "#5a3814");
+      
+      // fur
+      px(x + 50*s, y + 195*s, 68*s, 20*s, "#3b240b");
+      
+      // shoulder armor
+      px(x + 40*s, y + 90*s, 15*s, 15*s, "#999");
+      px(x + 112*s, y + 90*s, 15*s, 15*s, "#999");
+      
+      // =========================
+      // LEFT ARM
+      // =========================
+      
+      px(x + 12*s, y + 100*s, 35*s, 20*s, "#d8a070");
+      px(x - 2*s, y + 120*s, 30*s, 18*s, "#d8a070");
+      
+      // bracer
+      px(x - 3*s, y + 132*s, 32*s, 8*s, "#555");
+      
+      // =========================
+      // BIG SHIELD
+      // =========================
+      
+      // wood
+      px(x - 60*s, y + 75*s, 60*s, 90*s, "#704214");
+      
+      // metal strips
+      px(x - 38*s, y + 75*s, 14*s, 90*s, "#aaa");
+      px(x - 60*s, y + 112*s, 60*s, 14*s, "#aaa");
+      
+      // center metal
+      px(x - 42*s, y + 108*s, 22*s, 22*s, "#ddd");
+      
+      // border
+      px(x - 64*s, y + 71*s, 68*s, 4*s, "#333");
+      px(x - 64*s, y + 165*s, 68*s, 4*s, "#333");
+      px(x - 64*s, y + 71*s, 4*s, 98*s, "#333");
+      px(x, y + 71*s, 4*s, 98*s, "#333");
+      
+      // =========================
+      // RIGHT ARM
+      // =========================
+      
+      px(x + 120*s, y + 100*s, 35*s, 20*s, "#d8a070");
+      px(x + 135*s, y + 72*s, 26*s, 65*s, "#d8a070");
+      
+      // bracer
+      px(x + 133*s, y + 132*s, 30*s, 8*s, "#555");
+      
+      // =========================
+      // SWORD
+      // =========================
+      
+      // blade
+      px(x + 142*s, y - 20*s, 10*s, 100*s, "#d9d9d9");
+      
+      // shine
+      px(x + 146*s, y - 20*s, 2*s, 100*s, "#ffffff");
+      
+      // edge
+      px(x + 142*s, y - 20*s, 1*s, 100*s, "#999");
+      
+      // guard
+      px(x + 132*s, y + 78*s, 30*s, 6*s, "#999");
+      
+      // handle
+      px(x + 139*s, y + 84*s, 16*s, 32*s, "#4b2e05");
+      
+      // pommel
+      px(x + 137*s, y + 114*s, 20*s, 6*s, "#999");
+      
+      // =========================
+      // LEGS
+      // =========================
+      
+      // left leg
+      px(x + 56*s, y + 215*s, 24*s, 70*s, "#d8a070");
+      
+      // right leg
+      px(x + 88*s, y + 215*s, 24*s, 70*s, "#d8a070");
+      
+      // knee fur
+      px(x + 53*s, y + 278*s, 30*s, 10*s, "#5a3814");
+      px(x + 85*s, y + 278*s, 30*s, 10*s, "#5a3814");
+      
+      // boots
+      px(x + 50*s, y + 288*s, 34*s, 48*s, "#222");
+      px(x + 82*s, y + 288*s, 34*s, 48*s, "#222");
+      
+      // boot front
+      px(x + 50*s, y + 325*s, 42*s, 10*s, "#111");
+      px(x + 82*s, y + 325*s, 42*s, 10*s, "#111");
+    }
+    
+    // === DRAW MAGE FROM MAGE.HTML ===
+    function draw_mage(ctx, x, y, scale = 1){
+      function px(pxX, pxY, w, h, color){
+        ctx.fillStyle = color;
+        ctx.fillRect(pxX, pxY, w, h);
+      }
+      
+      const s = scale;
+      
+      // =========================
+      // CAPE
+      // =========================
+      px(x + 35*s, y + 110*s, 90*s, 130*s, "#1b1b5e");
+      px(x + 45*s, y + 110*s, 70*s, 150*s, "#2d2d8f");
+      
+      // =========================
+      // HAT
+      // =========================
+      px(x + 35*s, y + 60*s, 90*s, 10*s, "#2a2a7a");
+      px(x + 70*s, y + 0*s, 20*s, 60*s, "#3c3ca8");
+      px(x + 62*s, y + 15*s, 36*s, 15*s, "#3c3ca8");
+      px(x + 54*s, y + 30*s, 52*s, 15*s, "#3c3ca8");
+      px(x + 46*s, y + 45*s, 68*s, 15*s, "#3c3ca8");
+      px(x + 85*s, y + 10*s, 4*s, 45*s, "#7a7aff");
+      
+      // =========================
+      // HEAD
+      // =========================
+      px(x + 55*s, y + 70*s, 50*s, 50*s, "#d8a070");
+      px(x + 68*s, y + 90*s, 5*s, 5*s, "#000");
+      px(x + 88*s, y + 90*s, 5*s, 5*s, "#000");
+      px(x + 65*s, y + 105*s, 30*s, 30*s, "#cccccc");
+      
+      // =========================
+      // BODY ROBE
+      // =========================
+      px(x + 45*s, y + 120*s, 70*s, 120*s, "#2b2ba0");
+      px(x + 58*s, y + 130*s, 6*s, 100*s, "#4444cc");
+      px(x + 75*s, y + 130*s, 6*s, 100*s, "#4444cc");
+      px(x + 92*s, y + 130*s, 6*s, 100*s, "#4444cc");
+      px(x + 45*s, y + 185*s, 70*s, 8*s, "#5a3814");
+      
+      // =========================
+      // LEFT ARM
+      // =========================
+      px(x + 15*s, y + 135*s, 30*s, 18*s, "#d8a070");
+      px(x + 0*s, y + 150*s, 28*s, 16*s, "#d8a070");
+      px(x + 10*s, y + 128*s, 35*s, 10*s, "#2b2ba0");
+      
+      // =========================
+      // STAFF
+      // =========================
+      px(x - 20*s, y + 40*s, 10*s, 220*s, "#5b3a1a");
+      px(x - 26*s, y + 20*s, 22*s, 20*s, "#999");
+      px(x - 22*s, y + 0*s, 14*s, 20*s, "#44ccff");
+      px(x - 16*s, y + 3*s, 3*s, 10*s, "#ffffff");
+      
+      // =========================
+      // RIGHT ARM
+      // =========================
+      px(x + 115*s, y + 135*s, 30*s, 18*s, "#d8a070");
+      px(x + 132*s, y + 150*s, 28*s, 16*s, "#d8a070");
+      px(x + 115*s, y + 128*s, 35*s, 10*s, "#2b2ba0");
+      
+      // =========================
+      // LEGS
+      // =========================
+      px(x + 58*s, y + 240*s, 20*s, 55*s, "#444");
+      px(x + 84*s, y + 240*s, 20*s, 55*s, "#444");
+      px(x + 54*s, y + 290*s, 28*s, 40*s, "#222");
+      px(x + 80*s, y + 290*s, 28*s, 40*s, "#222");
+      px(x + 54*s, y + 322*s, 36*s, 8*s, "#111");
+      px(x + 80*s, y + 322*s, 36*s, 8*s, "#111");
+      
+      // =========================
+      // MAGIC RUNES
+      // =========================
+      px(x + 63*s, y + 145*s, 6*s, 6*s, "#44ccff");
+      px(x + 82*s, y + 165*s, 6*s, 6*s, "#44ccff");
+      px(x + 70*s, y + 190*s, 6*s, 6*s, "#44ccff");
+    }
+    
+    // === DRAW ROGUE FROM ROGUE.HTML ===
+    function draw_rogue(ctx, x, y, s=1){
+      function px(pxX, pxY, w, h, color){
+        ctx.fillStyle = color;
+        ctx.fillRect(pxX, pxY, w, h);
+      }
+      
+      // ===== HAIR =====
+      px(x+50*s,y+10*s,70*s,110*s,"#3a1a0a");
+      px(x+40*s,y+25*s,20*s,120*s,"#3a1a0a");
+      px(x+120*s,y+25*s,20*s,120*s,"#3a1a0a");
+      px(x+120*s,y+90*s,25*s,60*s,"#3a1a0a");
+      
+      // ===== FACE =====
+      px(x+60*s,y+35*s,55*s,55*s,"#e0b080");
+      px(x+72*s,y+55*s,5*s,5*s,"#000");
+      px(x+92*s,y+55*s,5*s,5*s,"#000");
+      
+      // ===== HOOD / LIGHT ARMOR =====
+      px(x+55*s,y+20*s,60*s,25*s,"#1f6b3a");
+      
+      // ===== TORSO =====
+      px(x+55*s,y+90*s,60*s,85*s,"#2e7a45");
+      px(x+62*s,y+160*s,46*s,22*s,"#1f6b3a");
+      px(x+50*s,y+180*s,70*s,25*s,"#2e7a45");
+      px(x+55*s,y+180*s,60*s,8*s,"#5a3a12");
+      
+      // ===== ARMS =====
+      px(x+20*s,y+100*s,35*s,18*s,"#e0b080");
+      px(x+5*s,y+118*s,28*s,16*s,"#e0b080");
+      px(x+115*s,y+100*s,35*s,18*s,"#e0b080");
+      px(x+132*s,y+118*s,28*s,16*s,"#e0b080");
+      
+      // ===== BOW =====
+      px(x-25*s,y+60*s,8*s,130*s,"#6b3f1f");
+      px(x-18*s,y+60*s,2*s,130*s,"#ddd");
+      px(x-10*s,y+120*s,55*s,4*s,"#aaa");
+      px(x+35*s,y+118*s,10*s,8*s,"#ccc");
+      
+      // ===== LEGS =====
+      px(x+62*s,y+205*s,22*s,70*s,"#e0b080");
+      px(x+88*s,y+205*s,22*s,70*s,"#e0b080");
+      px(x+55*s,y+275*s,30*s,40*s,"#222");
+      px(x+83*s,y+275*s,30*s,40*s,"#222");
+      
+      // ===== SHOULDER SILHOUETTE =====
+      px(x+48*s,y+92*s,12*s,12*s,"#2e7a45");
+      px(x+108*s,y+92*s,12*s,12*s,"#2e7a45");
+      
+      // ===== LIGHT DETAILING =====
+      px(x+70*s,y+110*s,6*s,40*s,"#3fa85f");
+      px(x+88*s,y+110*s,6*s,40*s,"#3fa85f");
+    }
+    
+    // === DRAW MAGIC GLADIATOR FROM MG.HTML ===
+    function draw_magic_gladiator(ctx, x, y, s = 1){
+      function px(pxX, pxY, w, h, color){
+        ctx.fillStyle = color;
+        ctx.fillRect(pxX, pxY, w, h);
+      }
+      
+      // cape
+      px(x+40*s,y+95*s,85*s,120*s,"#3a1a4a");
+      px(x+50*s,y+95*s,65*s,140*s,"#5a2a7a");
+      
+      // head
+      px(x+60*s,y+25*s,55*s,55*s,"#e0b080");
+      px(x+50*s,y+10*s,75*s,30*s,"#111");
+      px(x+72*s,y+50*s,5*s,5*s,"#000");
+      px(x+92*s,y+50*s,5*s,5*s,"#000");
+      
+      // armor
+      px(x+50*s,y+85*s,70*s,95*s,"#666");
+      px(x+70*s,y+120*s,30*s,30*s,"#3aa0ff");
+      px(x+78*s,y+128*s,14*s,14*s,"#bfe9ff");
+      px(x+50*s,y+180*s,70*s,10*s,"#4b2e12");
+      
+      // LEFT ARM + SWORD
+      px(x+10*s,y+105*s,40*s,18*s,"#e0b080");
+      px(x-5*s,y+120*s,30*s,18*s,"#e0b080");
+      px(x-30*s,y+70*s,8*s,120*s,"#cfd8ff");
+      px(x-28*s,y+70*s,3*s,120*s,"#7aa2ff");
+      
+      // RIGHT ARM + SWORD
+      px(x+115*s,y+105*s,40*s,18*s,"#e0b080");
+      px(x+130*s,y+120*s,30*s,18*s,"#e0b080");
+      px(x+150*s,y+60*s,8*s,130*s,"#ffd0a8");
+      px(x+152*s,y+60*s,3*s,130*s,"#ff7a2a");
+      
+      // legs
+      px(x+60*s,y+205*s,24*s,75*s,"#444");
+      px(x+88*s,y+205*s,24*s,75*s,"#444");
+      px(x+55*s,y+280*s,32*s,45*s,"#222");
+      px(x+83*s,y+280*s,32*s,45*s,"#222");
+    }
+    
+    // === DRAW OTHER CHARACTERS ===
     function drawCharacter(ctx, type) {
       ctx.clearRect(0, 0, 220, 260);
-      const cx = 110, cy = 210;
       
       switch(type) {
         case 'warrior':
-          ctx.fillStyle = '#8B4513';
-          ctx.beginPath(); ctx.ellipse(cx, cy, 45, 38, 0, 0, Math.PI*2); ctx.fill();
-          ctx.fillStyle = '#C0C0C0';
-          ctx.beginPath(); ctx.moveTo(cx-40,cy); ctx.lineTo(cx,cy-25); ctx.lineTo(cx+40,cy); ctx.fill();
+          drawWarrior(ctx, 55, 120, 0.45); // 45% scale to fit completely
           break;
         case 'mage':
-          ctx.fillStyle = '#4a3a5a';
-          ctx.beginPath(); ctx.ellipse(cx, cy, 42, 36, 0, 0, Math.PI*2); ctx.fill();
-          ctx.strokeStyle = '#8b6f8b'; ctx.lineWidth = 2;
-          ctx.beginPath(); ctx.arc(cx, cy, 50, 0, Math.PI*2); ctx.stroke();
+          draw_mage(ctx, 55, 120, 0.45); // 45% scale to fit completely
           break;
         case 'archer':
-          ctx.fillStyle = '#2d5a3f';
-          ctx.beginPath(); ctx.ellipse(cx, cy, 40, 38, 0, 0, Math.PI*2); ctx.fill();
-          ctx.strokeStyle = '#8B4513'; ctx.lineWidth = 3;
-          ctx.beginPath(); ctx.arc(cx+40, cy, 30, -Math.PI/2, Math.PI/2); ctx.stroke();
-          ctx.strokeStyle = '#C0C0C0'; ctx.lineWidth = 2;
-          ctx.beginPath(); ctx.moveTo(cx+10,cy); ctx.lineTo(cx+80,cy); ctx.stroke();
+          draw_rogue(ctx, 55, 120, 0.45); // 45% scale - using rogue design for archer
           break;
         case 'magicgladiator':
-          ctx.fillStyle = '#2a4a5a';
-          ctx.beginPath(); ctx.ellipse(cx, cy, 46, 40, 0, 0, Math.PI*2); ctx.fill();
-          ctx.shadowColor = '#ffd700'; ctx.shadowBlur = 15;
-          ctx.beginPath(); ctx.arc(cx, cy, 40, 0, Math.PI*2); ctx.fill();
-          ctx.shadowBlur = 0;
-          ctx.shadowColor = '#ff4500'; ctx.shadowBlur = 10;
-          ctx.fillStyle = '#ff4500';
-          ctx.beginPath(); ctx.moveTo(cx-50,cy); ctx.lineTo(cx-80,cy-30); ctx.lineTo(cx-55,cy); ctx.fill();
-          ctx.beginPath(); ctx.moveTo(cx+50,cy); ctx.lineTo(cx+80,cy-30); ctx.lineTo(cx+55,cy); ctx.fill();
-          ctx.shadowBlur = 0;
+          draw_magic_gladiator(ctx, 55, 120, 0.45); // 45% scale to fit completely
           break;
       }
     }
