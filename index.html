@@ -777,33 +777,6 @@
         sceneCtx.lineTo(t.x + t.canopyR2, baseY - t.trunkH - t.canopyR1 * 0.8 + t.canopyR2 * 0.4);
         sceneCtx.closePath();
         sceneCtx.fill();
-
-        // Foliage layer 3 (upper, smaller) — triangle
-        sceneCtx.fillStyle = t.color1;
-        sceneCtx.beginPath();
-        sceneCtx.moveTo(t.x, baseY - t.trunkH - t.canopyR1 * 0.8 - t.canopyR2 * 0.6 - t.canopyR2 * 0.45);
-        sceneCtx.lineTo(t.x - t.canopyR2 * 0.5, baseY - t.trunkH - t.canopyR1 * 0.8 + t.canopyR2 * 0.3);
-        sceneCtx.lineTo(t.x + t.canopyR2 * 0.5, baseY - t.trunkH - t.canopyR1 * 0.8 + t.canopyR2 * 0.3);
-        sceneCtx.closePath();
-        sceneCtx.fill();
-
-        // Foliage layer 4 (upper, smaller) — triangle
-        sceneCtx.fillStyle = t.color2;
-        sceneCtx.beginPath();
-        sceneCtx.moveTo(t.x, baseY - t.trunkH - t.canopyR1 * 0.8 - t.canopyR2 * 0.6 - t.canopyR2 * 0.45 - t.canopyR2 * 0.35);
-        sceneCtx.lineTo(t.x - t.canopyR2 * 0.4, baseY - t.trunkH - t.canopyR1 * 0.8 + t.canopyR2 * 0.2);
-        sceneCtx.lineTo(t.x + t.canopyR2 * 0.4, baseY - t.trunkH - t.canopyR1 * 0.8 + t.canopyR2 * 0.2);
-        sceneCtx.closePath();
-        sceneCtx.fill();
-
-        // Foliage layer 5 (upper, smallest) — triangle
-        sceneCtx.fillStyle = t.color1;
-        sceneCtx.beginPath();
-        sceneCtx.moveTo(t.x, baseY - t.trunkH - t.canopyR1 * 0.8 - t.canopyR2 * 0.6 - t.canopyR2 * 0.45 - t.canopyR2 * 0.35 - t.canopyR2 * 0.25);
-        sceneCtx.lineTo(t.x - t.canopyR2 * 0.3, baseY - t.trunkH - t.canopyR1 * 0.8 + t.canopyR2 * 0.1);
-        sceneCtx.lineTo(t.x + t.canopyR2 * 0.3, baseY - t.trunkH - t.canopyR1 * 0.8 + t.canopyR2 * 0.1);
-        sceneCtx.closePath();
-        sceneCtx.fill();
       }
     }
 
