@@ -1,15 +1,28 @@
-# Bataie RPG
+# bataie-rpg
 
-A simple interface for selecting an environment and a class. When you select an environment, the preview background updates accordingly. When you select a class, a preview of that class appears at the bottom center of the preview panel.
+**Bătălie RPG** – Selecție clasă + mediu (HTML+JS, 0 deps, inline)
 
-## How to Run
+## ▶ Run
+- `index.html` (browser)
+- `node server.js` → `http://localhost:3000`
 
-Open `index.html` in a modern browser (Chrome, Edge, or Firefox). The game runs automatically.
-Optionally, run the simple HTTP server by executing `node server.js`. The server serves `index.html` on port 3000.
+## 📁 Structură
+- `index.html` – CSS/JS inline
 
-## Project Structure
+## 🎮 Funcționalități
+- **Medii:** castel, padure, tundră, plajă, câmpie, canion, deșert, groapă
+- **Clase:** warrior, mage, archer, magicgladiator (preview + carousel)
+- **Caracter:** drawWarrior(), drawMage(), drawArcher(), draw_magic_gladiator()
+- **Dinamic:** selectEnvironment(), updatePreview(), updateCarousel()
 
-- `index.html` – Main file containing all the code (inline CSS and JavaScript).
-- No external dependencies. The project is intentionally lightweight for educational use.
+## 🌲 Forest
+- 3 rânduri copaci (back/mid/front) cu stratificare
+- 10 niveluri foi (radii = [35..5])
+- treeData: poziții fixe între redraw-uri
 
-Feel free to fork and improve.
+## 🏰 Medii
+- drawCastle(), drawForest(), drawVolcano(), drawBeach(), drawField(), drawCanion()
+
+## 🎨 Stil
+- Pixel art, canvas, image-rendering: pixelated
+- No external deps
